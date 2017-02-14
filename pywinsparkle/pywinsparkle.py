@@ -198,14 +198,6 @@ def win_sparkle_get_last_check_time():
     return result
 
 
-
-
-
-
-
-
-
-
 def win_sparkle_set_error_callback(app_callback):
     """
 
@@ -221,8 +213,62 @@ def win_sparkle_set_error_callback(app_callback):
     dll.win_sparkle_set_error_callback()
 
 
-def win_sparkle_set_did_find_update_callback(app_callback):
+def win_sparkle_set_can_shutdown_callback(app_callback):
+    """ Set callback for querying the application if it can be closed.
+
+    This callback will be called to ask the host if it's ready to shut down,
+    before attempting to launch the installer. The callback returns TRUE if
+    the host application can be safely shut down or FALSE if not (e.g. because
+    the user has unsaved documents).
+
+    Note: There's no guarantee about the thread from which the callback is called,
+          except that it certainly *won't* be called from the app's main thread.
+          Make sure the callback is thread-safe.
+
+    :param app_callback:
+    :return:
     """
+
+    me = win_sparkle_set_can_shutdown_callback
+    callback_function = _callback_function_helper(me, app_callback)
+
+    dll.win_sparkle_set_can_shutdown_callback.restype = None
+    dll.win_sparkle_set_can_shutdown_callback.argtypes = []
+    dll.win_sparkle_set_can_shutdown_callback(callback_function)
+
+
+def win_sparkle_set_shutdown_request_callback(app_callback):
+    """ Set callback for shutting down the application.
+
+    This callback will be called to ask the host to shut down immediately after
+    launching the installer. Its implementation should gracefully terminate the
+    application.
+
+    It will only be called if the call to the callback set with
+    win_sparkle_set_can_shutdown_callback() returns TRUE.
+
+    @note There's no guarantee about the thread from which the callback is called,
+          except that it certainly *won't* be called from the app's main thread.
+          Make sure the callback is thread-safe.
+
+    :param app_callback:
+    :return:
+    """
+
+    me = win_sparkle_set_shutdown_request_callback
+    callback_function = _callback_function_helper(me, app_callback)
+
+    dll.win_sparkle_set_shutdown_request_callback.restype = None
+    dll.win_sparkle_set_shutdown_request_callback.argtypes = []
+    dll.win_sparkle_set_shutdown_request_callback(callback_function)
+
+
+def win_sparkle_set_did_find_update_callback(app_callback):
+    """ Set callback to be called when the updater did find an update.
+
+    This is useful in combination with
+    win_sparkle_check_update_with_ui_and_install() as it allows you to perform
+    some action after WinSparkle checks for updates.
 
     :param app_callback:
     :return:
@@ -234,6 +280,25 @@ def win_sparkle_set_did_find_update_callback(app_callback):
     dll.win_sparkle_set_did_find_update_callback.restype = None
     dll.win_sparkle_set_did_find_update_callback.argtypes = []
     dll.win_sparkle_set_did_find_update_callback(callback_function)
+
+
+def win_sparkle_set_did_not_find_update_callback(app_callback):
+    """ Set callback to be called when the user cancels a download.
+
+    This is useful in combination with
+    win_sparkle_check_update_with_ui_and_install() as it allows you to perform
+    some action when the installation is interrupted.
+
+    :param app_callback:
+    :return:
+    """
+
+    me = win_sparkle_set_did_not_find_update_callback
+    callback_function = _callback_function_helper(me, app_callback)
+
+    dll.win_sparkle_set_did_not_find_update_callback.restype = None
+    dll.win_sparkle_set_did_not_find_update_callback.argtypes = []
+    dll.win_sparkle_set_did_not_find_update_callback(callback_function)
 
 
 def _callback_function_helper(wrapper_function, user_callback_funcion):
