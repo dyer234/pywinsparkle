@@ -183,6 +183,85 @@ def win_sparkle_get_update_check_interval():
     return result
 
 
+def win_sparkle_get_last_check_time():
+    """ Gets the time for the last update check.
+
+    Default value is -1, indicating that the update check has never run.
+
+    :return: Time in seconds since unix epoch
+    """
+
+    dll.win_sparkle_get_last_check_time.restype = c_int64
+    dll.win_sparkle_get_last_check_time.argtypes = [None]
+    result = dll.win_sparkle_get_last_check_time()
+
+    return result
+
+
+
+
+
+
+
+
+
+
+def win_sparkle_set_error_callback(app_callback):
+    """
+
+    :param app_callback:
+    :return:
+    """
+
+    me = win_sparkle_set_error_callback
+    callback_function = _callback_function_helper(me, app_callback)
+
+    dll.win_sparkle_set_error_callback.restype = None
+    dll.win_sparkle_set_error_callback.argytpes = []
+    dll.win_sparkle_set_error_callback()
+
+
+def win_sparkle_set_did_find_update_callback(app_callback):
+    """
+
+    :param app_callback:
+    :return:
+    """
+
+    me = win_sparkle_check_update_with_ui
+    callback_function = _callback_function_helper(me, app_callback)
+
+    dll.win_sparkle_set_did_find_update_callback.restype = None
+    dll.win_sparkle_set_did_find_update_callback.argtypes = []
+    dll.win_sparkle_set_did_find_update_callback(callback_function)
+
+
+def _callback_function_helper(wrapper_function, user_callback_funcion):
+    """ A helper function and should not be used outside the module.
+
+    When declaring these function pointers inside the wraper function, it is
+    necessary to store a reference somewhere or else it will be garbage collected.
+    If anything tries to use it after that, then it will crash. To Prevent this,
+    a reference is stored inside the function attributes similar to a c++ function
+    static variable. This also prevents the need to store it globally.
+
+    :param wrapper_function:
+    :param user_callback_funcion:
+    :return:
+    """
+
+    prototype = CFUNCTYPE(None)
+    callback_function = prototype(user_callback_funcion)
+
+    # store reference to function inside function attributes
+    if not hasattr(wrapper_function, "callback_function"):
+        wrapper_function.callback_function = None
+
+    wrapper_function.callback_function = callback_function
+
+    return wrapper_function.callback_function
+
+
 def win_sparkle_check_update_with_ui():
     """ Checks if an update is available, showing progress UI to the user.
 
