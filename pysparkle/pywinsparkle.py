@@ -1,7 +1,7 @@
 """ A wrapper for the WinSparkle project
 
 """
-from ctypes import *
+from ctypes import cdll, c_char_p, c_wchar_p, c_int16, c_int64, CFUNCTYPE
 import os
 
 THIS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -155,7 +155,6 @@ def win_sparkle_set_automatic_check_for_updates(update_state):
     dll.win_sparkle_set_automatic_check_for_updates(update_state)
 
 
-
 def win_sparkle_set_update_check_interval(interval):
     """ Sets the automatic update interval.
 
@@ -211,7 +210,7 @@ def win_sparkle_set_error_callback(app_callback):
 
     dll.win_sparkle_set_error_callback.restype = None
     dll.win_sparkle_set_error_callback.argytpes = []
-    dll.win_sparkle_set_error_callback()
+    dll.win_sparkle_set_error_callback(callback_function)
 
 
 def win_sparkle_set_can_shutdown_callback(app_callback):
