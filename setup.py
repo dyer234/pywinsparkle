@@ -10,10 +10,10 @@ class BinaryDistribution(Distribution):
 #long_description = convert_file('README.md', 'rst')
 long_description = "long description"
 
-setup(name='pysparkle',
+setup(name='pywinsparkle',
       description='A python wrapper for the winsparkle project',
       long_description=long_description,
-      version='1.0.4',
+      version='1.0.0',
       url='https://github.com/dyer234/pywinsparkle',
       author='Daniel Dyer',
       author_email='dyer234@gmail.com',
@@ -21,8 +21,8 @@ setup(name='pysparkle',
       keywords="sparkle winsparkle windows update",
       test_suite='nose.collector',
       tests_require=['nose'],
-      packages=["pysparkle"],
-      package_data= { "pysparkle" : ["libs/WinSparkle.dll"] },
+      packages=["pywinsparkle"],
+      package_data= { "pywinsparkle" : ["libs/WinSparkle.dll"] },
       classifiers=[
             # How mature is this project? Common values are
             #   3 - Alpha
