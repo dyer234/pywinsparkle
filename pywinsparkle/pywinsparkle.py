@@ -283,11 +283,11 @@ def win_sparkle_set_did_find_update_callback(app_callback):
 
 
 def win_sparkle_set_did_not_find_update_callback(app_callback):
-    """ Set callback to be called when the user cancels a download.
+    """ Set callback to be called when the updater did not find an update.
 
     This is useful in combination with
     win_sparkle_check_update_with_ui_and_install() as it allows you to perform
-    some action when the installation is interrupted.
+    some action after WinSparkle checks for updates.
 
     :param app_callback:
     :return:
@@ -300,6 +300,23 @@ def win_sparkle_set_did_not_find_update_callback(app_callback):
     dll.win_sparkle_set_did_not_find_update_callback.argtypes = []
     dll.win_sparkle_set_did_not_find_update_callback(callback_function)
 
+
+def win_sparkle_set_update_cancelled_callback(app_callback):
+    """ Set callback to be called when the user cancels a download.
+
+    This is useful in combination with
+    win_sparkle_check_update_with_ui_and_install() as it allows you to perform
+    some action when the installation is interrupted.
+
+    :param app_callback:
+    :return:
+    """
+
+    me = win_sparkle_set_update_cancelled_callback
+    callback_fucntion = _callback_function_helper(me, app_callback)
+    dll.win_sparkle_set_update_cancelled_callback.restype = None
+    dll.win_sparkle_set_update_cancelled_callback.argtypes = []
+    dll.win_sparkle_set_update_cancelled_callback(callback_fucntion)
 
 def _callback_function_helper(wrapper_function, user_callback_funcion):
     """ A helper function and should not be used outside the module.
