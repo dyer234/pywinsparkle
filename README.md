@@ -74,7 +74,7 @@ isn't working yet.
 
 Assuming you are using a virtual environment and it is called "venv" it would look like this:
 
-'''python
+```python
 
 import platform
 
@@ -94,4 +94,4 @@ a = Analysis(['PassagesUpdater\\src\\main.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
-'''
+```
