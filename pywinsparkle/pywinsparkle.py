@@ -3,11 +3,26 @@
 """
 from ctypes import cdll, c_char_p, c_wchar_p, c_int16, c_int64, CFUNCTYPE
 import os
+import sys
+import platform
 
-THIS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+# this python is 64bit or 32bit? Need to know to choose the right library to load
+architecture, _ = platform.architecture()
+if architecture == "64bit":
+    LIB_FOLDER = "libs" + os.sep + "x64"
+elif architecture == "32bit":
+    LIB_FOLDER = "libs" + os.sep + "x86"
 
-DLL_DIRECTORY = os.path.join(THIS_DIRECTORY, "libs")
-DLL_FILE = os.path.join(DLL_DIRECTORY, "WinSparkle")
+
+# compatibility with pyinstaller, else running live
+if getattr( sys, 'frozen', False ):
+    THIS_DIRECTORY = sys._MEIPASS
+    DLL_FILE = os.path.join(THIS_DIRECTORY, "WinSparkle")
+
+else:
+    THIS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+    DLL_FILE = os.path.join(THIS_DIRECTORY, LIB_FOLDER, "WinSparkle")
+
 
 dll = cdll.LoadLibrary(DLL_FILE)
 
