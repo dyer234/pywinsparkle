@@ -16,6 +16,11 @@ Installation
 Wheels are built for python 2.7, 3.4 (64bit), and 3.5 (32bit). I'll be working on getting more uniform wheel coverage
 soon.
 
+Note: If you are using one of the above versions and the version is listed on pypi at: https://pypi.python.org/pypi?:action=display&name=pywinsparkle
+
+Consider upgrading pip with `pip install --upgrade pip`
+
+
 Usage
 =====
 
