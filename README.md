@@ -13,11 +13,9 @@ Installation
 
 `pip install pywinsparkle`
 
-Wheels are built for python 2.7, 3.3, 3.4, 3.5, 3.5, and 3.6.
+Wheels are built for 32bit and 64bit versions of Windows, covering Python 2.7, 3.3, 3.4, 3.5
 
-Note: If you are using one of the above versions and the version is listed on pypi at: https://pypi.python.org/pypi?:action=display&name=pywinsparkle
-
-Consider upgrading pip with `pip install --upgrade pip`
+Note: If you are using one of the above versions pip throws and errror, consider upgrading pip with `pip install --upgrade pip`
 
 
 Usage
@@ -37,56 +35,25 @@ Basic Example
 from pywinsparkle import pywinsparkle
 
 
-def no_update_found():
-    """ when no update has been found, close the updater"""
-    print("No update found")
-    print("Setting flag to shutdown PassagesUpdater")
-
-
 def found_update():
-    """ log that an update was found """
-    print("New Update Available")
-
-
-def encountered_error():
-    print("An error occurred")
-
-
-def update_cancelled():
-    """ when the update was cancelled, close the updater"""
-    print("Update was cancelled")
-    print("Setting flag to shutdown PassagesUpdater")
-
-
-def shutdown():
-    """ The installer is being launched signal the updater to shutdown """
-
-    # actually shutdown the app here
-    print("Safe to shutdown before installing")
+    print("callback: found an update")
 
 
 def main():
 
     # register callbacks
     pywinsparkle.win_sparkle_set_did_find_update_callback(found_update)
-    pywinsparkle.win_sparkle_set_error_callback(callbacks.encountered_error)
-    pywinsparkle.win_sparkle_set_update_cancelled_callback(callbacks.update_cancelled)
-    pywinsparkle.win_sparkle_set_did_not_find_update_callback(callbacks.no_update_found)
-    pywinsparkle.win_sparkle_set_shutdown_request_callback(callbacks.shutdown)
 
     # set application details
 	update_url = "https://winsparkle.org/example/appcast.xml"
     pywinsparkle.win_sparkle_set_appcast_url(update_url)
-    pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", "1.0.0")
+    pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", "1.1.0"
 
     # initialize
     pywinsparkle.win_sparkle_init()
 
     # check for updates
     pywinsparkle.win_sparkle_check_update_with_ui()
-
-    # alternatively check for updates in the background
-    pywinsparkle.win_sparkle_check_update_without_ui()
 
 	# dont do it this way, just an example to keep the thread running
     while True:
