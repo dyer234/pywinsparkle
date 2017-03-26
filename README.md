@@ -1,6 +1,10 @@
+PyWinSparkle
+============
 
-About pywinsparkle
-==================
+
+### About pywinsparkle
+
+An auto-update framework for frozen Python applications on Windows.
 
 Pywinsparkle is a wrapper for the WinSparkle project originally developed by Vaclav Slavik. WinSparkle is an update framework for Windows. 
 
@@ -8,18 +12,21 @@ The original WinSparkle project is located here: https://winsparkle.org/
 
 github: https://github.com/vslavik/winsparkle
 
-Installation
-============
+The current version of PyWinSparkle includes WinSparkle 0.5.3
+
+
+### Installation
+
 
 `pip install pywinsparkle`
 
-Wheels are built for 32bit and 64bit versions of Windows, covering Python 2.7, 3.3, 3.4, 3.5
+Wheels are built for 32bit and 64bit versions of Windows, covering Python 2.7 and all python version after 3.3
 
 Note: If you are using one of the above versions pip throws and errror, consider upgrading pip with `pip install --upgrade pip`
 
 
-Usage
-=====
+### Usage
+
 
 All of the API function wrapper names are the same as the original WinSparkle project. The only difference
 is in the argument types which are either python strings or integers. For the callback functions, just the function
@@ -27,6 +34,8 @@ object is required (ie, the name of the function without the parenthesis).
 
 In pywinsparkle, it is necessary to always specify the application details with the `win_sparkle_set_app_details()` function.
 It is also necessary to set the appcast url with `win_sparkle_set_appcast_url()` (This is a distinction in between pywinsparkle and WinSparkle).
+
+Basic Example:
 
 ```python
 from pywinsparkle import pywinsparkle
@@ -80,7 +89,8 @@ def main():
     # check for updates
     pywinsparkle.win_sparkle_check_update_with_ui()
 
-    # alternatively check for updates in the background
+    # alternatively you could check for updates in the 
+    # background silently
     pywinsparkle.win_sparkle_check_update_without_ui()
 
 	# dont do it this way, just an example to keep the thread running
@@ -92,11 +102,15 @@ if __name__ == "__main__":
     main()
 ```
 
-Freezing with Pyinstaller
-=========================
+### API Documentation
 
-Currently requires you to add an entry to .SPEC in Analysis for binaries. I haven't worked out why the auto discovery
-isn't working yet.
+The documentation for the API can be found at: <http://pythonhosted.org/pywinsparkle>
+
+
+### Freezing with Pyinstaller
+
+
+Add an entry to .SPEC in Analysis for binaries. 
 
 Assuming you are using a virtual environment and it is called "venv" it would look like this:
 
@@ -121,3 +135,7 @@ a = Analysis(['PassagesUpdater\\src\\main.py'],
              win_private_assemblies=False,
              cipher=block_cipher)
 ```
+
+The package contains DLL's for both 64bit and 32bit versions of python. Adding the 
+preceding code snippet makes it possible to switch between versions of python 
+seamlessly.

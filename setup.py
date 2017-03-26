@@ -13,7 +13,7 @@ long_description = convert_file('README.md', 'rst')
 setup(name='pywinsparkle',
       description='A python wrapper for the winsparkle project',
       long_description=long_description,
-      version='1.0.16',
+      version='1.0.18',
       url='https://github.com/dyer234/pywinsparkle',
       author='Daniel Dyer',
       author_email='dyer234@gmail.com',
@@ -28,7 +28,7 @@ setup(name='pywinsparkle',
             #   3 - Alpha
             #   4 - Beta
             #   5 - Production/Stable
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Stable',
 
             # Indicate who your project is intended for
             'Intended Audience :: Developers',

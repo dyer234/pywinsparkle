@@ -24,8 +24,12 @@ else:
     DLL_FILE = os.path.join(THIS_DIRECTORY, LIB_FOLDER, "WinSparkle")
 
 
-dll = cdll.LoadLibrary(DLL_FILE)
-
+# documentation and wheel creation is done on linux, if this is linux then
+# dont try and load the DLL.
+if os.name == "nt":
+    dll = cdll.LoadLibrary(DLL_FILE)
+else:
+    dll = None
 
 def win_sparkle_init():
     """ Starts WinSparkle.
@@ -38,7 +42,6 @@ def win_sparkle_init():
           update is available, the respective UI is shown later from a separate
           thread.
 
-    :return:
     """
     dll.win_sparkle_init.restype = None
     dll.win_sparkle_init()
@@ -50,7 +53,6 @@ def win_sparkle_cleanup():
     Should be called by the app when it's shutting down. Cancels any
     pending Sparkle operations and shuts down its helper threads.
 
-    :return:
     """
 
     dll.win_sparkle_cleanup.restype = None
@@ -59,12 +61,12 @@ def win_sparkle_cleanup():
 
 def win_sparkle_set_lang(language):
     """ Sets UI language from its Win32 LANGID code.
-
+    
     This function must be called before win_sparkle_init().
     :param language: An int, Language code (LANGID) as created by the MAKELANGID macro
-                or returned by e.g. ::GetThreadUILanguage()
-    :return:
+    or returned by e.g. ::GetThreadUILanguage()
     """
+
     dll.win_sparkle_set_lang.restype = None
     dll.win_sparkle_set_lang.argtypes = [c_int16]
     dll.win_sparkle_set_lang(language)
@@ -81,7 +83,6 @@ def win_sparkle_set_appcast_url(url):
           various MITM attacks.
 
     :param url: URL of the appcast.
-    :return:
     """
 
     dll.win_sparkle_set_appcast_url.restype = None
@@ -104,7 +105,6 @@ def win_sparkle_set_app_details(company_name, app_name, app_version):
     :param app_name: Application name. This is both shown to the user
                          and used in HTTP User-Agent header
     :param app_version: Version of the app, as string (e.g. "1.2" or "1.2rc1").
-    :return:
     """
 
     dll.win_sparkle_set_app_details.restype = None
@@ -126,8 +126,7 @@ def win_sparkle_set_app_build_version(build_number):
     version string. The version passed to win_sparkle_set_app_details()
     corresponds to this and is used for display.
 
-    :param build_number: the build number
-    :return:
+    :param build_number: the build number (as string)
     """
 
     dll.win_sparkle_set_app_build_version.restype = None
@@ -149,7 +148,6 @@ def win_sparkle_set_registry_path(registry_path):
     win_sparkle_set_registry_path("Software\\My App\\Updates");
 
     :param registry_path: Registry path where settings will be stored.
-    :return:
     """
 
     dll.win_sparkle_set_registry_path.restype = None
@@ -162,7 +160,6 @@ def win_sparkle_set_automatic_check_for_updates(update_state):
     If disabled, win_sparkle_check_update_with_ui() must be used explicitly.
 
     :param update_state: 1 to have updates checked automatically, 0 otherwise
-    :return:
     """
 
     dll.win_sparkle_set_automatic_check_for_updates.restype = None
@@ -175,7 +172,6 @@ def win_sparkle_set_update_check_interval(interval):
 
     :param interval: interval The interval in seconds between checks for updates.
                      The minimum update interval is 3600 seconds (1 hour).
-    :return:
     """
 
     dll.win_sparkle_set_update_check_interval.restype = None
@@ -188,7 +184,6 @@ def win_sparkle_get_update_check_interval():
 
     Default value is -1, indicating that the update check has never run.
 
-    :return:
     """
 
     dll.win_sparkle_get_update_check_interval.restype = c_int64
@@ -216,8 +211,7 @@ def win_sparkle_get_last_check_time():
 def win_sparkle_set_error_callback(app_callback):
     """ Set callback to be called when the updater encounters an error.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_set_error_callback
@@ -240,8 +234,7 @@ def win_sparkle_set_can_shutdown_callback(app_callback):
           except that it certainly *won't* be called from the app's main thread.
           Make sure the callback is thread-safe.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_set_can_shutdown_callback
@@ -266,8 +259,7 @@ def win_sparkle_set_shutdown_request_callback(app_callback):
           except that it certainly *won't* be called from the app's main thread.
           Make sure the callback is thread-safe.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_set_shutdown_request_callback
@@ -285,8 +277,7 @@ def win_sparkle_set_did_find_update_callback(app_callback):
     win_sparkle_check_update_with_ui_and_install() as it allows you to perform
     some action after WinSparkle checks for updates.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_check_update_with_ui
@@ -304,8 +295,7 @@ def win_sparkle_set_did_not_find_update_callback(app_callback):
     win_sparkle_check_update_with_ui_and_install() as it allows you to perform
     some action after WinSparkle checks for updates.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_set_did_not_find_update_callback
@@ -323,8 +313,7 @@ def win_sparkle_set_update_cancelled_callback(app_callback):
     win_sparkle_check_update_with_ui_and_install() as it allows you to perform
     some action when the installation is interrupted.
 
-    :param app_callback:
-    :return:
+    :param app_callback: The function name that should called
     """
 
     me = win_sparkle_set_update_cancelled_callback
@@ -344,7 +333,6 @@ def _callback_function_helper(wrapper_function, user_callback_funcion):
 
     :param wrapper_function:
     :param user_callback_funcion:
-    :return:
     """
 
     prototype = CFUNCTYPE(None)
@@ -372,7 +360,6 @@ def win_sparkle_check_update_with_ui():
     window is shown.
 
     This function returns immediately.
-    :return:
     """
 
     dll.win_sparkle_check_update_with_ui.restype = None
@@ -392,7 +379,6 @@ def win_sparkle_check_update_with_ui_and_install():
     may wish to use win_sparkle_set_did_not_find_update_callback() and
     win_sparkle_set_update_cancelled_callback().
 
-    :return:
     """
 
     dll.win_sparkle_check_update_with_ui_and_install.restype = None
@@ -410,8 +396,6 @@ def win_sparkle_check_update_without_ui():
     checks on interval option or manual check with visible UI.
 
     This function returns immediately.
-
-    :return:
     """
 
     dll.win_sparkle_check_update_without_ui.restype = None

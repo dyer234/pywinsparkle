@@ -18,8 +18,21 @@ function build_python_wheel()
 	
 	python -m pip install pypandoc
 
+	cd ../
 	python setup.py bdist_wheel --plat-name=$4
 	deactivate
+	cd BuildScripts
+}
+
+function generate_documentation()
+{
+	rm -rf venv
+	python3 -m venv venv
+	source venv/bin/activate
+	python -m pip install wheel
+	python -m pip install sphinx
+	cd BuildScripts/sphinx
+	make html
 }
 
 
@@ -52,6 +65,9 @@ function main()
 	build_python_wheel 2 7 13 win_amd64
 
 	sudo rm -rf WORK_TEMP	
+	cd ../
+
+	generate_documentation
 }
 
 main
