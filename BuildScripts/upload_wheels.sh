@@ -7,7 +7,7 @@ function upload_wheels()
 	python -m pip install wheel
 	python -m pip install twine
 
-	python -m twine upload dist/*
+	python -m twine upload ../dist/*
 	deactivate
 	rm -rf venv
 }
