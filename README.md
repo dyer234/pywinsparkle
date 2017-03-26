@@ -65,12 +65,12 @@ def main():
     # register callbacks
     pywinsparkle.win_sparkle_set_did_find_update_callback(found_update)
     pywinsparkle.win_sparkle_set_error_callback(callbacks.encountered_error)
-    pywinsparkle.win_sparkle_set_update_cancelled_callback(callbacks.update_cancelled)
-    pywinsparkle.win_sparkle_set_did_not_find_update_callback(callbacks.no_update_found)
-    pywinsparkle.win_sparkle_set_shutdown_request_callback(callbacks.shutdown)
+    pywinsparkle.win_sparkle_set_update_cancelled_callback(update_cancelled)
+    pywinsparkle.win_sparkle_set_did_not_find_update_callback(no_update_found)
+    pywinsparkle.win_sparkle_set_shutdown_request_callback(shutdown)
 
     # set application details
-	update_url = "https://winsparkle.org/example/appcast.xml"
+    update_url = "https://winsparkle.org/example/appcast.xml"
     pywinsparkle.win_sparkle_set_appcast_url(update_url)
     pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", "1.0.0")
 
