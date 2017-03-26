@@ -13,12 +13,9 @@ Installation
 
 `pip install pywinsparkle`
 
-Wheels are built for python 2.7, 3.4 (64bit), and 3.5 (32bit). I'll be working on getting more uniform wheel coverage
-soon.
+Wheels are built for 32bit and 64bit versions of Windows, covering Python 2.7, 3.3, 3.4, 3.5
 
-Note: If you are using one of the above versions and the version is listed on pypi at: https://pypi.python.org/pypi?:action=display&name=pywinsparkle
-
-Consider upgrading pip with `pip install --upgrade pip`
+Note: If you are using one of the above versions pip throws and errror, consider upgrading pip with `pip install --upgrade pip`
 
 
 Usage
@@ -38,10 +35,6 @@ Basic Example
 from pywinsparkle import pywinsparkle
 
 
-def get_version():
-    return "1.0.0"
-
-
 def found_update():
     print("callback: found an update")
 
@@ -54,7 +47,7 @@ def main():
     # set application details
 	update_url = "https://winsparkle.org/example/appcast.xml"
     pywinsparkle.win_sparkle_set_appcast_url(update_url)
-    pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", get_version())
+    pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", "1.1.0"
 
     # initialize
     pywinsparkle.win_sparkle_init()

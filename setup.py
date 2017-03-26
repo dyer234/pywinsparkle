@@ -1,5 +1,5 @@
 from setuptools import setup, Distribution
-#from pypandoc import convert_file
+from pypandoc import convert_file
 
 class BinaryDistribution(Distribution):
     def has_ext_modules(foo):
@@ -7,13 +7,13 @@ class BinaryDistribution(Distribution):
 
 
 #: Converts the Markdown README in the RST format that PyPi expects.
-#long_description = convert_file('README.md', 'rst')
-long_description = "A python wrapper for the winsparkle project"
+long_description = convert_file('README.md', 'rst')
+
 
 setup(name='pywinsparkle',
       description='A python wrapper for the winsparkle project',
       long_description=long_description,
-      version='1.0.12',
+      version='1.0.16',
       url='https://github.com/dyer234/pywinsparkle',
       author='Daniel Dyer',
       author_email='dyer234@gmail.com',
@@ -22,7 +22,7 @@ setup(name='pywinsparkle',
       test_suite='nose.collector',
       tests_require=['nose'],
       packages=["pywinsparkle"],
-      package_data= { "pywinsparkle" : ["libs\\x64\\WinSparkle.dll", "libs\\x86\\WinSparkle.dll"] },
+      package_data= { "pywinsparkle" : ["libs/x64/WinSparkle.dll", "libs/x86/WinSparkle.dll"] },
       classifiers=[
             # How mature is this project? Common values are
             #   3 - Alpha
