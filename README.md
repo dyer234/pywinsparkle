@@ -123,7 +123,7 @@ if architecture == "64bit":
 else:
     winsparkle = 'venv\\Lib\\site-packages\\pywinsparkle\\libs\\x86\\WinSparkle.dll'
 
-a = Analysis(['PassagesUpdater\\src\\main.py'],
+a = Analysis(['Updater\\src\\main.py'],
              pathex=['.'],
              binaries=[(winsparkle, '.')],
              datas=[],
