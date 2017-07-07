@@ -12,8 +12,9 @@ The original WinSparkle project is located here: https://winsparkle.org/
 
 github: https://github.com/vslavik/winsparkle
 
-The current version of PyWinSparkle includes WinSparkle 0.5.3
+The current version of PyWinSparkle includes WinSparkle 0.5.4
 
+Note: This is package is not affiliated with the original developer Vaclac Slavik and is therefore technically unofficial.
 
 ### Installation
 
@@ -32,8 +33,8 @@ All of the API function wrapper names are the same as the original WinSparkle pr
 is in the argument types which are either python strings or integers. For the callback functions, just the function
 object is required (ie, the name of the function without the parenthesis).
 
-In pywinsparkle, it is necessary to always specify the application details with the `win_sparkle_set_app_details()` function.
-It is also necessary to set the appcast url with `win_sparkle_set_appcast_url()` (This is a distinction in between pywinsparkle and WinSparkle).
+In pywinsparkle, I have not tested created Windows Resource files, instead I have just been using `win_sparkle_set_app_details()` function. The Windows Resource files should work though.
+It is also necessary to set the appcast url with `win_sparkle_set_appcast_url()`.
 
 Basic Example:
 
