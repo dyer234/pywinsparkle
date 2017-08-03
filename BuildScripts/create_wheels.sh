@@ -3,7 +3,8 @@ set -e
 set -x
 
 
-
+# Pull the version of winsparkle from github specified in the variable. Then
+# unzip it and place it in a location that setup.py is expecting it to be.
 function download_latest_winsparkle()
 {
     winsparkle_version="0.5.5"
