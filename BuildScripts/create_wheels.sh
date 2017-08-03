@@ -2,6 +2,34 @@
 set -e
 set -x
 
+
+
+function download_latest_winsparkle()
+{
+    winsparkle_version="0.5.5"
+
+    mkdir -p ./WORK
+    cd WORK 
+
+    wget https://github.com/vslavik/winsparkle/releases/download/v$winsparkle_version/WinSparkle-$winsparkle_version.zip
+    unzip WinSparkle-$winsparkle_version.zip
+    cd WinSparkle-$winsparkle_version
+
+    libs_folder="../../../pywinsparkle/libs"
+	
+    # move the x86 version
+    cp Release/WinSparkle.dll $libs_folder/x86
+    diff Release/WinSparkle.dll $libs_folder/x86/WinSparkle.dll
+
+
+    # move the x64 version
+    cp x64/Release/WinSparkle.dll $libs_folder/x64/
+    diff x64/Release/WinSparkle.dll $libs_folder/x64/WinSparkle.dll
+
+    cd ../../
+    rm -r WORK
+}
+
 # This fucntion creates a virtual environment for the version
 # of python specified in the arguments.
 # Args:
@@ -38,6 +66,8 @@ function generate_documentation()
 
 function main()
 {
+	download_latest_winsparkle
+
 	sudo apt-get install pandoc
 
 	# create the wheel for python 3.6
