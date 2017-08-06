@@ -7,7 +7,7 @@ set -x
 # unzip it and place it in a location that setup.py is expecting it to be.
 function download_latest_winsparkle()
 {
-    winsparkle_version="0.5.5"
+    winsparkle_version="0.5.6"
 
     mkdir -p ./WORK
     cd WORK 
