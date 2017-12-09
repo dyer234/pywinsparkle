@@ -12,7 +12,7 @@ The original WinSparkle project is located here: https://winsparkle.org/
 
 github: https://github.com/vslavik/winsparkle
 
-The current version of PyWinSparkle includes WinSparkle 0.5.6
+The current version of PyWinSparkle includes WinSparkle 0.5.7
 
 Note: This is package is not affiliated with the original developer Vaclac Slavik and is therefore technically unofficial.
 
@@ -94,7 +94,7 @@ def main():
     # background silently
     pywinsparkle.win_sparkle_check_update_without_ui()
 
-	# dont do it this way, just an example to keep the thread running
+    # dont do it this way, just an example to keep the thread running
     while True:
         time.sleep(1)
 
