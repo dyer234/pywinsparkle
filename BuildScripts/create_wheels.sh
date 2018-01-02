@@ -77,18 +77,22 @@ function main()
 	# create the wheel for python 3.6
 	build_python_wheel 3 6 1 win32 
 	build_python_wheel 3 6 1 win_amd64
+	build_python_whell 3 6 1 mingw
 
 	# create the wheel for python 3.5
 	build_python_wheel 3 5 2 win32
 	build_python_wheel 3 5 2 win_amd64
+	build_python_wheel 3 5 2 mingw
 
 	# create the wheel for python 3.4
 	build_python_wheel 3 4 5 win32
 	build_python_wheel 3 4 5 win_amd64
+	build_python_wheel 3 4 5 mingw
 
 	# create the wheel for python 3.3
 	build_python_wheel 3 3 5 win32
 	build_python_wheel 3 3 5 win_amd64
+	build_python_wheel 3 3 5 mingw
 
 	# create the wheel for python 3.2
 	#build_python_wheel 3 2 6 win32
@@ -97,6 +101,7 @@ function main()
 	# create the wheel for python 2.7
 	build_python_wheel 2 7 13 win32
 	build_python_wheel 2 7 13 win_amd64
+	build_python_wheel 2 7 13 mingw
 
 	sudo rm -rf WORK_TEMP	
 	sudo rm -rf install_python.sh
