@@ -77,7 +77,7 @@ function main()
 	# create the wheel for python 3.6
 	build_python_wheel 3 6 1 win32 
 	build_python_wheel 3 6 1 win_amd64
-	build_python_whell 3 6 1 mingw
+	build_python_wheel 3 6 1 mingw
 
 	# create the wheel for python 3.5
 	build_python_wheel 3 5 2 win32
