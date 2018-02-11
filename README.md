@@ -12,7 +12,7 @@ The original WinSparkle project is located here: https://winsparkle.org/
 
 github: https://github.com/vslavik/winsparkle
 
-The current version of PyWinSparkle includes WinSparkle 0.5.7
+The current version of PyWinSparkle includes WinSparkle 0.6.0
 
 Note: This is package is not affiliated with the original developer Vaclac Slavik and is therefore technically unofficial.
 
