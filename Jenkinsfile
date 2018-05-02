@@ -9,7 +9,7 @@ pipeline {
 
 
 
-create_wheels.sh'''
+./create_wheels.sh'''
       }
     }
   }
