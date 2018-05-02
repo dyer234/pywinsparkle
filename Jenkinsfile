@@ -3,7 +3,13 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'BuildScripts/create_wheels.sh'
+        sh '''cd BuildScripts;
+
+
+
+
+
+create_wheels.sh'''
       }
     }
   }
