@@ -56,7 +56,7 @@ function build_python_wheel()
 function generate_documentation()
 {
 	rm -rf venv
-        bash install_python.sh --major 3 --minor 6 --revision 1
+    bash install_python.sh --major 3 --minor 6 --revision 1
 	source venv/bin/activate
 	python -m pip install wheel
 	python -m pip install sphinx
@@ -67,10 +67,11 @@ function generate_documentation()
 
 function main()
 {
-        # script to install python
-        wget https://raw.githubusercontent.com/dyer234/build_python/master/install_python.sh
+        
+    # script to install python
+    wget https://raw.githubusercontent.com/dyer234/build_python/master/install_python.sh
 	
-        download_latest_winsparkle
+    download_latest_winsparkle
 
 	sudo apt-get install pandoc
 
@@ -97,10 +98,6 @@ function main()
 	# create the wheel for python 2.7
 	build_python_wheel 2 7 13 win32
 	build_python_wheel 2 7 13 win_amd64
-
-	sudo rm -rf WORK_TEMP	
-	sudo rm -rf install_python.sh
-        cd ../
 
 	generate_documentation
 }
