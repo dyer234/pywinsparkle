@@ -14,7 +14,7 @@ pipeline {
 
 
 
-./create_wheels.sh'''
+bash ./create_wheels.sh'''
       }
     }
   }
