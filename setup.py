@@ -12,7 +12,7 @@ class BinaryDistribution(Distribution):
 
 setup(name='pywinsparkle',
       description='A python wrapper for the winsparkle project',
-      long_description=long_description,
+      long_description='A python wrapper for the winsparkle project',
       version='1.5.0',
       url='https://github.com/dyer234/pywinsparkle',
       author='Daniel Dyer',
