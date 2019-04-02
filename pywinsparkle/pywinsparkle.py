@@ -111,7 +111,22 @@ def win_sparkle_set_app_details(company_name, app_name, app_version):
     dll.win_sparkle_set_app_details.argtypes = [c_wchar_p, c_wchar_p, c_wchar_p]
     dll.win_sparkle_set_app_details(company_name, app_name, app_version)
 
+def win_sparkle_set_dsa_pub_pem(dsa_pub_pem):
+    """     Sets DSA public key.
+    Only PEM format is supported.
+    Public key will be used to verify DSA signature of the update file.
+    PEM data will be set only if it contains valid DSA public key.
+    If this function isn't called by the app, public key is obtained from
+    Windows resource named "DSAPub" of type "DSAPEM".
+    @param dsa_pub_pem  DSA public key in PEM format.
+    @return  1 if valid DSA public key provided, 0 otherwise.
+    @since 0.6.0
+    """
 
+    dll.win_sparkle_set_dsa_pub_pem.restype = c_int64
+    dll.win_sparkle_set_dsa_pub_pem.argtypes = [c_char_p]
+    dll.win_sparkle_set_dsa_pub_pem(dsa_pub_pem.encode())
+    
 def win_sparkle_set_app_build_version(build_number):
     """ Sets application build version number.
 
