@@ -1,5 +1,5 @@
 from setuptools import setup, Distribution
-from pypandoc import convert_file
+#from pypandoc import convert_file
 
 class BinaryDistribution(Distribution):
     def has_ext_modules(foo):
@@ -7,7 +7,7 @@ class BinaryDistribution(Distribution):
 
 
 #: Converts the Markdown README in the RST format that PyPi expects.
-long_description = convert_file('README.md', 'rst')
+#long_description = convert_file('README.md', 'rst')
 
 
 setup(name='pywinsparkle',
