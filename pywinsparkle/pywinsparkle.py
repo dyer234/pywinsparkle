@@ -23,10 +23,10 @@ else:
     THIS_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
     DLL_FILE = os.path.join(THIS_DIRECTORY, LIB_FOLDER, "WinSparkle")
 
-
 # documentation and wheel creation is done on linux, if this is linux then
 # dont try and load the DLL.
 if os.name == "nt":
+    print(DLL_FILE)
     dll = cdll.LoadLibrary(DLL_FILE)
 else:
     dll = None
@@ -125,8 +125,10 @@ def win_sparkle_set_dsa_pub_pem(dsa_pub_pem):
 
     dll.win_sparkle_set_dsa_pub_pem.restype = c_int64
     dll.win_sparkle_set_dsa_pub_pem.argtypes = [c_char_p]
-    dll.win_sparkle_set_dsa_pub_pem(dsa_pub_pem.encode())
-    
+    result = dll.win_sparkle_set_dsa_pub_pem(dsa_pub_pem.encode())
+
+    return result
+
 def win_sparkle_set_app_build_version(build_number):
     """ Sets application build version number.
 
@@ -169,6 +171,19 @@ def win_sparkle_set_registry_path(registry_path):
     dll.win_sparkle_set_registry_path.argtypes = [c_wchar_p]
     dll.win_sparkle_set_registry_path(registry_path)
 
+def win_sparkle_get_automatic_check_for_updates():
+    """     Gets the automatic update checking state
+    @return  1 if updates are set to be checked automatically, 0 otherwise
+    @note Defaults to 0 when not yet configured (as happens on first start).
+    @since 0.4
+
+    """
+
+    dll.win_sparkle_get_automatic_check_for_updates.restype = c_int64
+    dll.win_sparkle_get_automatic_check_for_updates.argtypes = None
+    result = dll.win_sparkle_get_automatic_check_for_updates()
+
+    return result
 
 def win_sparkle_set_automatic_check_for_updates(update_state):
     """ Sets whether updates are checked automatically or only through a manual call.
@@ -181,6 +196,7 @@ def win_sparkle_set_automatic_check_for_updates(update_state):
     dll.win_sparkle_set_automatic_check_for_updates.argtypes = [c_int64]
     dll.win_sparkle_set_automatic_check_for_updates(update_state)
 
+    return result
 
 def win_sparkle_set_update_check_interval(interval):
     """ Sets the automatic update interval.
