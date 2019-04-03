@@ -196,7 +196,7 @@ def win_sparkle_set_automatic_check_for_updates(update_state):
     dll.win_sparkle_set_automatic_check_for_updates.argtypes = [c_int64]
     dll.win_sparkle_set_automatic_check_for_updates(update_state)
 
-    return result
+    #return result
 
 def win_sparkle_set_update_check_interval(interval):
     """ Sets the automatic update interval.
