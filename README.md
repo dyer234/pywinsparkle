@@ -40,7 +40,7 @@ Basic Example:
 
 ```python
 from pywinsparkle import pywinsparkle
-
+import os
 
 def no_update_found():
     """ when no update has been found, close the updater"""
@@ -74,7 +74,7 @@ def main():
 
     # register callbacks
     pywinsparkle.win_sparkle_set_did_find_update_callback(found_update)
-    pywinsparkle.win_sparkle_set_error_callback(callbacks.encountered_error)
+    pywinsparkle.win_sparkle_set_error_callback(encountered_error)
     pywinsparkle.win_sparkle_set_update_cancelled_callback(update_cancelled)
     pywinsparkle.win_sparkle_set_did_not_find_update_callback(no_update_found)
     pywinsparkle.win_sparkle_set_shutdown_request_callback(shutdown)
@@ -83,6 +83,11 @@ def main():
     update_url = "https://winsparkle.org/example/appcast.xml"
     pywinsparkle.win_sparkle_set_appcast_url(update_url)
     pywinsparkle.win_sparkle_set_app_details("VendorName", "TestApp1", "1.0.0")
+
+    if os.path.isfile('dsa_pub.pem'):
+        with open('dsa_pub.pem', 'r') as file:
+            pub_key = file.read()
+        pywinsparkle.win_sparkle_set_dsa_pub_pem(pub_key)
 
     # initialize
     pywinsparkle.win_sparkle_init()
